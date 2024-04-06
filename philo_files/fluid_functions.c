@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 10:50:04 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/06 10:48:23 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/06 14:44:21 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	ft_print_msg(t_data *data, char action)
 	else if (action == 's')
 		ft_printf("is sleeping");
 	else if (action == 't')
-		ft_printf("thinking");
+		ft_printf("is thinking");
 	else if (action == 'd')
 		ft_printf("died");
 	pthread_mutex_unlock(&((data->global_d)->write_mutex));

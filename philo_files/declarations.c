@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:47:06 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/06 10:47:06 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/06 14:45:43 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ void	create_philo(t_data **data, t_global_data *global_d,
 			(*data)[i].left = 0;
 		pthread_create(&(*threads)[i], NULL, philo_process,
 			(void *)&((*data)[i]));
-		ft_printf("Philosopher nº %d arrived, left: %d right: %d\n",
-			(*data)[i].id, (*data)[i].left, (*data)[i].right);
 		i++;
 		pthread_mutex_unlock(&(global_d->write_mutex));
 	}
