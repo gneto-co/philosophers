@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:47:06 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/06 14:45:43 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/06 15:07:05 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ int	global_declarations(t_global_data *global_d, int ac, char **av)
 		global_d->meals_to_get_fat = ft_atoi(av[5]);
 	else
 		global_d->meals_to_get_fat = 0;
+	if (global_d->philo_amount < 0 || global_d->time_to_die < 0
+		|| global_d->time_to_eat < 0 || global_d->time_to_sleep < 0
+		|| (global_d->meals_to_get_fat <= 0 && ac == 6))
+		return (ft_error(2));
 	return (0);
 }
 
@@ -57,6 +61,7 @@ void	mutex_declarations(t_global_data *global_d)
 
 	pthread_mutex_init(&(global_d->write_mutex), NULL);
 	pthread_mutex_init(&(global_d->run_mutex), NULL);
+	pthread_mutex_init(&(global_d->dead_mutex), NULL);
 	i = 0;
 	while (i < global_d->philo_amount)
 		pthread_mutex_init(&(global_d->forks_mutex[i++]), NULL);

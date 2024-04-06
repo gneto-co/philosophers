@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:22:13 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/05 13:12:27 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/06 14:58:04 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ static int	action(t_global_data *global_d, t_data **data)
 	{
 		if ((global_d->meals_to_get_fat)
 			&& ((*data)[i].meals_eaten >= global_d->meals_to_get_fat))
-		{
 			fat_philo++;
-		}
 		i++;
 	}
 	if (fat_philo == global_d->philo_amount)
 	{
+		pthread_mutex_lock(&(global_d->dead_mutex));
 		global_d->stop_signal = 1;
+		pthread_mutex_unlock(&(global_d->dead_mutex));
 	}
 	pthread_mutex_unlock(&(global_d->write_mutex));
 	return (r);

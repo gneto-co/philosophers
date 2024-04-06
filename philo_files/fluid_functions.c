@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 10:50:04 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/06 14:44:21 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/06 14:57:46 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ int	is_dead(t_data *data, t_global_data *global_d)
 	{
 		ft_print_msg(data, 'd');
 		data->state = 'd';
-		pthread_mutex_lock(&(global_d->write_mutex));
+		pthread_mutex_lock(&(global_d->dead_mutex));
 		data->dead = 1;
 		global_d->stop_signal = 1;
-		pthread_mutex_unlock(&(global_d->write_mutex));
+		pthread_mutex_unlock(&(global_d->dead_mutex));
 		return (1);
 	}
 	return (0);
@@ -46,12 +46,12 @@ int	stop_check(t_global_data *global_d)
 	int	r;
 
 	r = 0;
-	pthread_mutex_lock(&(global_d->write_mutex));
+	pthread_mutex_lock(&(global_d->dead_mutex));
 	if (global_d->stop_signal)
 	{
 		r = 1;
 	}
-	pthread_mutex_unlock(&(global_d->write_mutex));
+	pthread_mutex_unlock(&(global_d->dead_mutex));
 	return (r);
 }
 
@@ -84,30 +84,28 @@ void	ft_wait_for(t_data *data, unsigned long start_time,
 	}
 }
 
-// f - fork
-//   taken - l, r
-//   dropped - i, o
-//   waiting - j, k
+// f - take a fork
 // e - eating
 // s - sleeping
 // t - thinking
 // d - died
 void	ft_print_msg(t_data *data, char action)
 {
-	if (stop_check(data->global_d))
-		return ;
 	pthread_mutex_lock(&((data->global_d)->write_mutex));
-	ft_printf("\n%d %d ", (ft_get_time() - data->global_d->start_time),
-		data->id);
-	if (action == 'f')
-		ft_printf("has taken a fork");
-	else if (action == 'e')
-		ft_printf("is eating");
-	else if (action == 's')
-		ft_printf("is sleeping");
-	else if (action == 't')
-		ft_printf("is thinking");
-	else if (action == 'd')
-		ft_printf("died");
+	if (!stop_check(data->global_d))
+	{
+		ft_printf("\n%d %d ", (ft_get_time() - data->global_d->start_time),
+			data->id);
+		if (action == 'f')
+			ft_printf("has taken a fork");
+		else if (action == 'e')
+			ft_printf("is eating");
+		else if (action == 's')
+			ft_printf("is sleeping");
+		else if (action == 't')
+			ft_printf("is thinking");
+		else if (action == 'd')
+			ft_printf("died");
+	}
 	pthread_mutex_unlock(&((data->global_d)->write_mutex));
 }

@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 11:58:50 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/06 10:47:37 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/06 14:58:12 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 typedef struct s_global_data
 {
 	pthread_mutex_t	write_mutex;
+	pthread_mutex_t	dead_mutex;
 	pthread_mutex_t	run_mutex;
 	pthread_mutex_t	*forks_mutex;
 	long			start_time;
