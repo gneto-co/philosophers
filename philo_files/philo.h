@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 11:58:50 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/03 11:47:23 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/06 10:47:37 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,6 @@ typedef struct s_data
 	int				id;
 	int				dead;
 	char			state;
-	// t - thinking
-	// e - eating
-	// s - sleeping
-	// d - death
 	int				meals_eaten;
 	int				time_of_last_meal;
 	int				left;

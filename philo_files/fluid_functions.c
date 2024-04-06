@@ -6,11 +6,54 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 10:50:04 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/03 12:34:07 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/06 10:48:23 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+// if philo starve:
+//  change the state to death
+//  turn on the stop_signal
+//  put death message
+//  return 1
+// else if stop_signal already on
+//  return 1
+// else
+//  return 0
+int	is_dead(t_data *data, t_global_data *global_d)
+{
+	if (stop_check(global_d))
+		return (1);
+	if ((data->left == data->right) || ((int)ft_get_time()
+			- data->time_of_last_meal >= global_d->time_to_die))
+	{
+		ft_print_msg(data, 'd');
+		data->state = 'd';
+		pthread_mutex_lock(&(global_d->write_mutex));
+		data->dead = 1;
+		global_d->stop_signal = 1;
+		pthread_mutex_unlock(&(global_d->write_mutex));
+		return (1);
+	}
+	return (0);
+}
+
+// if stop_signal is on return 1
+// else return 0
+int	stop_check(t_global_data *global_d)
+{
+	int	r;
+
+	r = 0;
+	pthread_mutex_lock(&(global_d->write_mutex));
+	if (global_d->stop_signal)
+	{
+		r = 1;
+	}
+	pthread_mutex_unlock(&(global_d->write_mutex));
+	return (r);
+}
 
 // it returns the actual time in miliseconds
 unsigned long	ft_get_time(void)
@@ -35,8 +78,8 @@ void	ft_wait_for(t_data *data, unsigned long start_time,
 	s = 0;
 	while ((ft_get_time() < start_time + wait_time) && (!d) && (!s))
 	{
-        d = is_dead(data, global_d);
-        s = stop_check(global_d);
+		d = is_dead(data, global_d);
+		s = stop_check(global_d);
 		usleep(10);
 	}
 }
@@ -49,61 +92,22 @@ void	ft_wait_for(t_data *data, unsigned long start_time,
 // s - sleeping
 // t - thinking
 // d - died
-void ft_print_msg(t_data *data, char action)
+void	ft_print_msg(t_data *data, char action)
 {
 	if (stop_check(data->global_d))
 		return ;
-
-    if (action == 'i' || action == 'o' || action == 'j' || action == 'k')
-        return ;
-        
-    pthread_mutex_lock(&((data->global_d)->write_mutex));
-    ft_printf("\n%d philo nº %d ", (ft_get_time() - data->global_d->start_time), data->id);
-        
-    // fork tests
-    if (action == 'l')
-    {
-        ft_color(5);
-        ft_printf("has taken the left fork nº %d", data->left);
-        ft_color(0);
-    }
-    if (action == 'r')
-    {
-        ft_color(5);   
-        ft_printf("has taken the right fork nº %d", data->right);
-        ft_color(0);
-    }
-    if (action == 'i')
-        ft_printf("has dropped the left fork nº %d", data->left);
-    if (action == 'o')
-        ft_printf("has dropped the right fork nº %d", data->right);
-    if (action == 'j')
-        ft_printf("is waiting for the left fork nº %d", data->left);
-    if (action == 'k')
-        ft_printf("is waiting for the right fork nº %d", data->right);
-    else if (action == 'e')
-    {
-        ft_color(2);
-        ft_printf("is eating is %dº meal", data->meals_eaten);
-        ft_color(0);
-    }
-    else if (action == 's')
-    {
-        ft_color(6);
-        ft_printf("is sleeping");
-        ft_color(0);
-    }
-    else if (action == 't')
-    {
-        ft_color(8);
-        ft_printf("thinking");
-        ft_color(0);
-    }
-    else if (action == 'd')
-    {
-        ft_color(1);
-        ft_printf("died");
-        ft_color(0);        
-    }
-    pthread_mutex_unlock(&((data->global_d)->write_mutex));
+	pthread_mutex_lock(&((data->global_d)->write_mutex));
+	ft_printf("\n%d %d ", (ft_get_time() - data->global_d->start_time),
+		data->id);
+	if (action == 'f')
+		ft_printf("has taken a fork");
+	else if (action == 'e')
+		ft_printf("is eating");
+	else if (action == 's')
+		ft_printf("is sleeping");
+	else if (action == 't')
+		ft_printf("thinking");
+	else if (action == 'd')
+		ft_printf("died");
+	pthread_mutex_unlock(&((data->global_d)->write_mutex));
 }
