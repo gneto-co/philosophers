@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 10:50:04 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/06 14:57:46 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/08 18:08:56 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,25 @@
 //  return 0
 int	is_dead(t_data *data, t_global_data *global_d)
 {
+	int	r;
+
 	if (stop_check(global_d))
 		return (1);
+	r = 0;
+	// need to lock the dead mutex to read the time_of_last_meal
+	// and to put stop signal to 1 if necessary
+	pthread_mutex_lock(&(global_d->dead_mutex));
 	if ((data->left == data->right) || ((int)ft_get_time()
 			- data->time_of_last_meal >= global_d->time_to_die))
 	{
 		ft_print_msg(data, 'd');
 		data->state = 'd';
-		pthread_mutex_lock(&(global_d->dead_mutex));
 		data->dead = 1;
 		global_d->stop_signal = 1;
-		pthread_mutex_unlock(&(global_d->dead_mutex));
-		return (1);
+		r = 1;
 	}
-	return (0);
+	pthread_mutex_unlock(&(global_d->dead_mutex));
+	return (r);
 }
 
 // if stop_signal is on return 1
@@ -99,13 +104,18 @@ void	ft_print_msg(t_data *data, char action)
 		if (action == 'f')
 			ft_printf("has taken a fork");
 		else if (action == 'e')
+		{
 			ft_printf("is eating");
+			data->meals_eaten++;
+		}
 		else if (action == 's')
 			ft_printf("is sleeping");
 		else if (action == 't')
 			ft_printf("is thinking");
 		else if (action == 'd')
 			ft_printf("died");
+		else if (action == 'w')
+			ft_printf("!!!!!waiting!!!!!");
 	}
 	pthread_mutex_unlock(&((data->global_d)->write_mutex));
 }

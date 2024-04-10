@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:22:13 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/03 12:32:59 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:47:25 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ void *wall_e_process(void *original_data)
 	(void)data;
 
     // wait for other processes to start
-	pthread_mutex_lock(&(global_d->run_mutex));
-	pthread_mutex_unlock(&(global_d->run_mutex));
+	pthread_mutex_lock(&(global_d->run1_mutex));
+	pthread_mutex_unlock(&(global_d->run1_mutex));
 
     // loop
     while (1)

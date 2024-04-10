@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:47:06 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/03 11:37:02 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:47:25 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void mutex_declarations(t_global_data *global_d)
 	
 	// initialize mutex
 	pthread_mutex_init(&(global_d->write_mutex), NULL);
-	pthread_mutex_init(&(global_d->run_mutex), NULL);
+	pthread_mutex_init(&(global_d->run1_mutex), NULL);
 	
 	// create a fork for each philosopher
 	i = 0;

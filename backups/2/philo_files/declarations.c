@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:47:06 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/10 14:47:46 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:47:25 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,7 @@ void	mutex_declarations(t_global_data *global_d)
 
 	pthread_mutex_init(&(global_d->write_mutex), NULL);
 	pthread_mutex_init(&(global_d->run1_mutex), NULL);
-	pthread_mutex_init(&(global_d->run2_mutex), NULL);
-	pthread_mutex_init(&(global_d->stop_mutex), NULL);
-	pthread_mutex_init(&(global_d->last_meal), NULL);
+	pthread_mutex_init(&(global_d->dead_mutex), NULL);
 	i = 0;
 	while (i < global_d->philo_amount)
 		pthread_mutex_init(&(global_d->forks_mutex[i++]), NULL);
@@ -82,6 +80,7 @@ void	create_philo(t_data **data, t_global_data *global_d,
 		(*data)[i].id = i + 1;
 		(*data)[i].global_d = global_d;
 		(*data)[i].meals_eaten = 0;
+		(*data)[i].dead = 0;
 		(*data)[i].state = 't';
 		(*data)[i].left = (*data)[i].id;
 		(*data)[i].right = (*data)[i].id - 1;

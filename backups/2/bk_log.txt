@@ -1,0 +1,1 @@
+este back up está práticamente pronto para entregar mas o delay da morte é mais do que 10 ms

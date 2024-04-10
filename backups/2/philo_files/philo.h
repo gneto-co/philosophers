@@ -24,6 +24,7 @@
 typedef struct s_global_data
 {
 	pthread_mutex_t	write_mutex;
+	pthread_mutex_t	last_meal;
 	pthread_mutex_t	run1_mutex;
 	pthread_mutex_t	*forks_mutex;
 	long			start_time;
@@ -41,10 +42,6 @@ typedef struct s_data
 	int				id;
 	int				dead;
 	char			state;
-	// t - thinking
-	// e - eating
-	// s - sleeping
-	// d - death
 	int				meals_eaten;
 	int				time_of_last_meal;
 	int				left;

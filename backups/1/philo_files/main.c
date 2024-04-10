@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 11:33:36 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/03 11:36:39 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/10 14:47:25 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int main(int ac, char **av)
 	mutex_declarations(&global_d);
 
 	// lock mutex to wait for all threads
-	pthread_mutex_lock(&(global_d.run_mutex));
+	pthread_mutex_lock(&(global_d.run1_mutex));
 
 	/* ---------------------------------------- */
 	/* ------------- THREADS CODE ------------- */
@@ -56,7 +56,7 @@ int main(int ac, char **av)
 	// get star time
 	global_d.start_time = ft_get_time();
 	// unlock mutex to start threads at the same time
-	pthread_mutex_unlock(&(global_d.run_mutex));
+	pthread_mutex_unlock(&(global_d.run1_mutex));
 	// print conference start
 	pthread_mutex_lock(&(global_d.write_mutex));
 	ft_color(4);
@@ -83,7 +83,7 @@ int main(int ac, char **av)
 	
 	// destroy mutex
 	pthread_mutex_destroy(&(global_d.write_mutex));
-	pthread_mutex_destroy(&(global_d.run_mutex));
+	pthread_mutex_destroy(&(global_d.run1_mutex));
 	
 	// free vars
 	free(data);

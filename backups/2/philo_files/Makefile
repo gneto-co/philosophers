@@ -6,7 +6,7 @@
 #    By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/09 10:51:25 by gneto-co          #+#    #+#              #
-#    Updated: 2024/04/10 11:28:13 by gneto-co         ###   ########.fr        #
+#    Updated: 2024/03/27 11:46:36 by gneto-co         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,9 +16,7 @@ SOURCES = $(addsuffix .c, \
 main \
 philo_process \
 wall_e_process \
-time_functions \
-fluid_functions1 \
-fluid_functions2 \
+fluid_functions \
 declarations \
 )
 

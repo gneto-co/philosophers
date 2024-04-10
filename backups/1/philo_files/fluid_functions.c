@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 10:50:04 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/03 12:34:07 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/10 11:05:05 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_wait_for(t_data *data, unsigned long start_time,
 // s - sleeping
 // t - thinking
 // d - died
-void ft_print_msg(t_data *data, char action)
+void print_msg(t_data *data, char action)
 {
 	if (stop_check(data->global_d))
 		return ;

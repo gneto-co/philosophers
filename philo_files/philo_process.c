@@ -6,46 +6,11 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 11:33:38 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/06 10:48:14 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/10 15:19:48 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-// if is thinking go to the (fork_mutex) line
-static void	thinking(t_data *data, t_global_data *global_d)
-{
-	if (is_dead(data, global_d))
-		return ;
-	ft_print_msg(data, 't');
-	pthread_mutex_lock(&(global_d->forks_mutex[data->left]));
-	ft_print_msg(data, 'f');
-	pthread_mutex_lock(&(global_d->forks_mutex[data->right]));
-	ft_print_msg(data, 'f');
-	data->state = 'e';
-}
-
-// if is eating just need to eat and then release the forks
-static void	eating(t_data *data, t_global_data *global_d)
-{
-	data->meals_eaten++;
-	data->time_of_last_meal = ft_get_time();
-	ft_print_msg(data, 'e');
-	ft_wait_for(data, ft_get_time(), global_d->time_to_eat);
-	pthread_mutex_unlock(&(global_d->forks_mutex[data->left]));
-	pthread_mutex_unlock(&(global_d->forks_mutex[data->right]));
-	data->state = 's';
-}
-
-// if is sleeping just need to wait
-static void	sleeping(t_data *data, t_global_data *global_d)
-{
-	if (is_dead(data, global_d))
-		return ;
-	ft_print_msg(data, 's');
-	ft_wait_for(data, ft_get_time(), global_d->time_to_sleep);
-	data->state = 't';
-}
 
 static int	action(t_data *data, t_global_data *global_d)
 {
@@ -55,7 +20,6 @@ static int	action(t_data *data, t_global_data *global_d)
 		eating(data, global_d);
 	if (data->state == 's')
 		sleeping(data, global_d);
-	is_dead(data, global_d);
 	return (stop_check(global_d));
 }
 
@@ -64,19 +28,22 @@ void	*philo_process(void *original_data)
 	t_data			*data;
 	t_global_data	*global_d;
 
+	// declarations
 	data = (t_data *)original_data;
 	global_d = data->global_d;
-	pthread_mutex_lock(&(global_d->run_mutex));
-	pthread_mutex_unlock(&(global_d->run_mutex));
+	// wait for all and set last meal to start time
+	ft_wait_for_all(global_d);
 	data->time_of_last_meal = global_d->start_time;
+	// if is even wait a little
 	if (data->id % 2)
-		usleep(30);
+		usleep(500);
+	// loop until break
 	while (1)
 	{
 		usleep(10);
 		if (action(data, global_d))
 			break ;
 	}
-	(void)action;
+	// end process
 	pthread_exit(NULL);
 }

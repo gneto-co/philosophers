@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 11:33:36 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/10 15:42:56 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/08 10:46:10 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static void	main_split_1(t_data **data, t_global_data *global_d,
 	wall_e_data.data = data;
 	pthread_create(&wall_e_thread, NULL, wall_e_process,
 		(void *)&(wall_e_data));
+	pthread_detach(wall_e_thread);
 	global_d->start_time = ft_get_time();
-	pthread_mutex_unlock(&(global_d->run1_mutex));
+	pthread_mutex_unlock(&(global_d->run_mutex));
 	i = 0;
 	while (i < global_d->philo_amount)
 		pthread_join((*threads)[i++], NULL);
-	pthread_join(wall_e_thread, NULL);
 }
 
 int	main(int ac, char **av)
@@ -43,15 +43,12 @@ int	main(int ac, char **av)
 		return (1);
 	data_allocation(&data, &global_d, &threads);
 	mutex_declarations(&global_d);
-	pthread_mutex_lock(&(global_d.run1_mutex));
-	pthread_mutex_lock(&(global_d.run2_mutex));
+	pthread_mutex_lock(&(global_d.run_mutex));
 	create_philo(&data, &global_d, &threads);
 	main_split_1(&data, &global_d, &threads);
 	pthread_mutex_destroy(&(global_d.write_mutex));
-	pthread_mutex_destroy(&(global_d.last_meal));
-	pthread_mutex_destroy(&(global_d.stop_mutex));
-	pthread_mutex_destroy(&(global_d.run1_mutex));
-	pthread_mutex_destroy(&(global_d.run2_mutex));
+	pthread_mutex_destroy(&(global_d.dead_mutex));
+	pthread_mutex_destroy(&(global_d.run_mutex));
 	i = 0;
 	while (i<global_d.philo_amount)
 		pthread_mutex_destroy(&(global_d.forks_mutex[i++]));
