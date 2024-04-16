@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 11:11:06 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/16 11:23:42 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/16 11:29:29 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	ft_isnumber(const char *str)
 	return (1);
 }
 
-static void	divide(int *nbr, int *signal)
+static void	divide(int long *nbr, int *signal)
 {
 	*nbr = 0;
 	*signal = 1;
