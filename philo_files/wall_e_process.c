@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:22:13 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/10 15:46:22 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/16 10:33:37 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	*wall_e_process(void *original_data)
 	// loop until break
 	while (1)
 	{
-		usleep(10);
+		usleep(DELAY);
 		if (action(global_d, data))
 			break ;
 	}

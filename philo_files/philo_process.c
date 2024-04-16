@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 11:33:38 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/10 15:19:48 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/16 10:21:52 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ void	*philo_process(void *original_data)
 	data->time_of_last_meal = global_d->start_time;
 	// if is even wait a little
 	if (data->id % 2)
-		usleep(500);
-	// loop until break
+		ft_wait_for(data, ft_get_time(), global_d->time_to_eat /*- global_d->philo_amount */);
+	// loop until break //
 	while (1)
 	{
-		usleep(10);
+		usleep(DELAY);
 		if (action(data, global_d))
 			break ;
 	}
-	// end process
+	// end process //
 	pthread_exit(NULL);
 }

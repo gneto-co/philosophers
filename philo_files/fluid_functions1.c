@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 10:50:04 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/10 15:01:23 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/16 10:38:08 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,10 @@ int	stop_check(t_global_data *global_d)
 // d - died
 void	print_msg(t_data *data, char action)
 {
+	static int	v;
+
 	pthread_mutex_lock(&((data->global_d)->write_mutex));
-	if (!stop_check(data->global_d))
+	if (!stop_check(data->global_d) && !v)
 	{
 		ft_printf("\n%d %d ", (ft_get_time() - data->global_d->start_time),
 			data->id);
@@ -134,7 +136,7 @@ void	print_msg(t_data *data, char action)
 		else if (action == 't')
 			ft_printf("is thinking");
 		else if (action == 'd')
-			ft_printf("died");
+			v = ft_printf("died");
 		else if (action == 'a')
 			ft_printf("is alive");
 	}

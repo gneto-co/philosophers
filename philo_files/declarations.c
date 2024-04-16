@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 11:47:06 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/10 14:47:46 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/12 16:14:27 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ void	mutex_declarations(t_global_data *global_d)
 
 	pthread_mutex_init(&(global_d->write_mutex), NULL);
 	pthread_mutex_init(&(global_d->run1_mutex), NULL);
-	pthread_mutex_init(&(global_d->run2_mutex), NULL);
 	pthread_mutex_init(&(global_d->stop_mutex), NULL);
 	pthread_mutex_init(&(global_d->last_meal), NULL);
 	i = 0;

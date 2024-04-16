@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 09:48:14 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/10 14:51:58 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/15 20:43:28 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ void	ft_wait_for(t_data *data, unsigned long start_time,
 	{
 		if (stop_check(global_d))
 			break;
-		usleep(10);
+		usleep(DELAY);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 11:58:50 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/10 15:20:17 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/16 10:36:24 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 #include <sys/time.h>
 #include <unistd.h>
 
+#define DELAY 5
+
 // ------------------------------
 // ---------- structs -----------
 // ------------------------------
@@ -26,7 +28,6 @@ typedef struct s_global_data
 	pthread_mutex_t	write_mutex;
 	pthread_mutex_t	last_meal;
 	pthread_mutex_t	run1_mutex;
-	pthread_mutex_t	run2_mutex;
 	pthread_mutex_t	stop_mutex;
 	pthread_mutex_t	*forks_mutex;
 	long			start_time;
