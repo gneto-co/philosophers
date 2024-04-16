@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 09:48:14 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/15 20:43:28 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/16 10:42:15 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 /* TIME FUNCTIONS */
 /*
 	-summary-
-    they are the functions how deal with time
-	
+	they are the functions how deal with time
+
 	-funtions-
 	ft_get_time()
 	ft_wait_for()
@@ -42,7 +42,7 @@ void	ft_wait_for(t_data *data, unsigned long start_time,
 	while ((ft_get_time() < start_time + wait_time))
 	{
 		if (stop_check(global_d))
-			break;
+			break ;
 		usleep(DELAY);
 	}
 }

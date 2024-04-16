@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 10:50:04 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/12 16:24:43 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/16 10:41:08 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,10 @@
 // wait for left and right (fork_mutex) and start eating
 void	thinking(t_data *data, t_global_data *global_d)
 {
-	// wait for the left fork
 	pthread_mutex_lock(&(global_d->forks_mutex[data->left]));
 	print_msg(data, 'f');
-	// wait for the right fork
 	pthread_mutex_lock(&(global_d->forks_mutex[data->right]));
 	print_msg(data, 'f');
-	// print & set eating
 	data->state = 'e';
 	print_msg(data, 'e');
 }
@@ -45,17 +42,13 @@ void	thinking(t_data *data, t_global_data *global_d)
 // eat and then release the forks, next start sleeping
 void	eating(t_data *data, t_global_data *global_d)
 {
-	// set last meal time
 	pthread_mutex_lock(&(global_d->last_meal));
 	data->time_of_last_meal = ft_get_time();
 	data->meals_eaten++;
 	pthread_mutex_unlock(&(global_d->last_meal));
-	// start eating and wait (time_to_eat) ms
 	ft_wait_for(data, ft_get_time(), global_d->time_to_eat);
-	// drop the forks when finished eating
 	pthread_mutex_unlock(&(global_d->forks_mutex[data->left]));
 	pthread_mutex_unlock(&(global_d->forks_mutex[data->right]));
-	// print & set sleep
 	data->state = 's';
 	print_msg(data, 's');
 }
@@ -63,9 +56,7 @@ void	eating(t_data *data, t_global_data *global_d)
 // sleep and start thinking
 void	sleeping(t_data *data, t_global_data *global_d)
 {
-	// start sleeping and wait (time_to_sleep) ms
 	ft_wait_for(data, ft_get_time(), global_d->time_to_sleep);
-	// print & set think
 	data->state = 't';
 	print_msg(data, 't');
 }

@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 10:50:04 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/16 10:38:08 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/16 10:41:41 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,10 @@ int	is_dead(t_data *data, t_global_data *global_d)
 	int	r;
 
 	r = 0;
-	// lock last_meal mutex
 	pthread_mutex_lock(&(global_d->last_meal));
-	(void)data;
 	if ((data->left == data->right) || ((int)ft_get_time()
 			- data->time_of_last_meal >= global_d->time_to_die))
 	{
-		// print & set death
 		print_msg(data, 'd');
 		data->state = 'd';
 		r = 1;
@@ -67,9 +64,7 @@ int	are_all_fat(t_data **data, t_global_data *global_d)
 	r = 0;
 	i = 0;
 	fat_philo = 0;
-	// lock last_meal mutex
 	pthread_mutex_lock(&(global_d->last_meal));
-	// loop all philo and get the amount of fat philo
 	while (i < global_d->philo_amount)
 	{
 		if ((global_d->meals_to_get_fat)
@@ -77,7 +72,6 @@ int	are_all_fat(t_data **data, t_global_data *global_d)
 			fat_philo++;
 		i++;
 	}
-	// if all philo are fat
 	if (fat_philo == global_d->philo_amount)
 	{
 		r = 1;
@@ -89,7 +83,6 @@ int	are_all_fat(t_data **data, t_global_data *global_d)
 // turn on the stop_signal
 int	stop_set(t_global_data *global_d)
 {
-	// lock stop_mutex and turn on the stop_signal
 	pthread_mutex_lock(&(global_d->stop_mutex));
 	global_d->stop_signal = 1;
 	pthread_mutex_unlock(&(global_d->stop_mutex));
@@ -103,7 +96,6 @@ int	stop_check(t_global_data *global_d)
 	int	r;
 
 	r = 0;
-	// lock stop mutex and check if is on
 	pthread_mutex_lock(&(global_d->stop_mutex));
 	if (global_d->stop_signal)
 	{
