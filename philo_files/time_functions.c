@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 09:48:14 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/16 10:42:15 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:59:00 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,9 @@ unsigned long	ft_get_time(void)
 
 // that function wait a certain amount of time
 // if stop_signal is on it stops
-void	ft_wait_for(t_data *data, unsigned long start_time,
+void	ft_wait_for(t_global_data *global_d, unsigned long start_time,
 		unsigned long wait_time)
 {
-	t_global_data	*global_d;
-
-	global_d = data->global_d;
 	while ((ft_get_time() < start_time + wait_time))
 	{
 		if (stop_check(global_d))

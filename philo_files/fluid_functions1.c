@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 10:50:04 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/16 10:41:41 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/23 10:11:02 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,10 @@ int	is_dead(t_data *data, t_global_data *global_d)
 
 	r = 0;
 	pthread_mutex_lock(&(global_d->last_meal));
-	if ((data->left == data->right) || ((int)ft_get_time()
+	if (((int)ft_get_time()
 			- data->time_of_last_meal >= global_d->time_to_die))
 	{
 		print_msg(data, 'd');
-		data->state = 'd';
 		r = 1;
 	}
 	pthread_mutex_unlock(&(global_d->last_meal));

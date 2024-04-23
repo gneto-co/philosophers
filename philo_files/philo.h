@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 11:58:50 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/16 10:36:24 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/23 10:19:06 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 
-#define DELAY 5
+#define DELAY 10
 
 // ------------------------------
 // ---------- structs -----------
@@ -76,8 +76,8 @@ void				*wall_e_process(void *original_data);
 
 // time functions
 unsigned long		ft_get_time(void);
-void				ft_wait_for(t_data *data, unsigned long start_time,
-						unsigned long wait_time);
+void				ft_wait_for(t_global_data *global_declarations,
+						unsigned long start_time, unsigned long wait_time);
 
 // fluid funtions 1
 int					is_dead(t_data *data, t_global_data *global_d);
@@ -86,7 +86,8 @@ int					stop_set(t_global_data *global_d);
 int					stop_check(t_global_data *global_d);
 void				print_msg(t_data *data, char action);
 // fluid functions 2
-void				thinking(t_data *data, t_global_data *global_d);
+void				thinking_even(t_data *data, t_global_data *global_d);
+void				thinking_odd(t_data *data, t_global_data *global_d);
 void				eating(t_data *data, t_global_data *global_d);
 void				sleeping(t_data *data, t_global_data *global_d);
 void				ft_wait_for_all(t_global_data *global_d);

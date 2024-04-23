@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:22:13 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/16 10:41:55 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/04/23 10:18:59 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ void	*wall_e_process(void *original_data)
 	{
 		usleep(DELAY);
 		if (action(global_d, data))
+		{
 			break ;
+		}
 	}
 	pthread_exit(NULL);
 }
