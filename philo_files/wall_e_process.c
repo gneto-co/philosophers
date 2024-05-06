@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 14:22:13 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/23 10:18:59 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/05/06 11:18:12 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ static int	action(t_global_data *global_d, t_data **data)
 	i = 0;
 	while (i < global_d->philo_amount)
 	{
-		if (is_dead(&(*data)[i], global_d))
+		if ((long int)(ft_get_time() - global_d->start_time)
+			>= global_d->time_to_die && is_dead(&(*data)[i], global_d))
 		{
 			return (stop_set(global_d));
 		}
