@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 11:33:38 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/04/23 10:16:26 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/05/06 11:35:29 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	*philo_process(void *original_data)
 	data->time_of_last_meal = global_d->start_time;
 	pthread_mutex_unlock(&(global_d->last_meal));
 	if (data->id % 2)
+		ft_wait_for(global_d, ft_get_time(), global_d->time_to_eat);
+	if (!global_d->philo_amount % 2 && data->id == global_d->philo_amount)
 		ft_wait_for(global_d, ft_get_time(), global_d->time_to_eat);
 	while (1)
 	{
