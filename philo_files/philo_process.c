@@ -6,7 +6,7 @@
 /*   By: gneto-co <gneto-co@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 11:33:38 by gneto-co          #+#    #+#             */
-/*   Updated: 2024/05/06 11:57:26 by gneto-co         ###   ########.fr       */
+/*   Updated: 2024/05/06 12:50:37 by gneto-co         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static int	action(t_data *data, t_global_data *global_d)
 		eating(data, global_d);
 	if (data->state == 's')
 		sleeping(data, global_d);
+	if (global_d->philo_amount % 2 != 0)
+		ft_wait_for(global_d, ft_get_time(), global_d->time_to_eat);
 	return (stop_check(global_d));
 }
 
@@ -41,10 +43,10 @@ void	*philo_process(void *original_data)
 	pthread_mutex_lock(&(global_d->last_meal));
 	data->time_of_last_meal = global_d->start_time;
 	pthread_mutex_unlock(&(global_d->last_meal));
-	if (data->id % 2)
+	if (data->id % 2 != 0)
 		ft_wait_for(global_d, ft_get_time(), global_d->time_to_eat);
-	if (global_d->philo_amount % 2 && data->id == global_d->philo_amount)
-		ft_wait_for(global_d, ft_get_time(), global_d->time_to_eat);
+	if (global_d->philo_amount % 2 != 0 && data->id == global_d->philo_amount)
+		ft_wait_for(global_d, ft_get_time(), global_d->time_to_eat / 2);
 	while (1)
 	{
 		usleep(DELAY);
